@@ -1,14 +1,38 @@
-function draw() {
-    gocanvas = document.getElementById("gocanvas");
+function start() {
+    gocanvas = $("gocanvas");
     canv = gocanvas.getContext("2d");
+    cellSize = 35;
+    stoneSize = (cellSize-2)/2;
+
+    window.addEventListener("mousedown", on_mousedown, false);
+    window.addEventListener("mouseup", on_mouseup, false);
+
     // 9x9, 13,13, and 19x19 are the good sizes!
     //drawBoard(9);
     drawBoard(13);
     //drawBoard(19);
 }
 
+function getRelativePosition(e) {
+	return {x: e.clientX - $("gocanvas").offsetLeft, y: e.clientY - $("gocanvas").offsetTop};
+}
+
+function on_mousedown(e) {
+    var pos = getRelativePosition(e);
+}
+
+function on_mouseup(e) {
+    var pos = getRelativePosition(e);
+    placeStone(pos.x, pos.y)
+}
+
+function placeStone(x, y) {
+    var xthing = (x % cellSize) < (cellSize/2) ? x - (x%cellSize) : x + (cellSize-x%cellSize);
+    var ything = (y % cellSize) < (cellSize/2) ? y - (y%cellSize) : y + (cellSize-y%cellSize);
+    drawCircle(xthing,ything,stoneSize,true);
+}
+
 function drawBoard(lines) {
-    var cellSize = 35;
     // apparently this doesn't work!
     //gocanvas.width = ((cellSize*lines)+(cellsize*2));
     //gocanvas.height = ((cellSize*lines)+(cellsize*2));
@@ -48,3 +72,5 @@ function drawCircle(x, y, radius, fill) {
 
 // Arc drawing requires radians!
 function radians(deg) {return (Math.PI/180)*deg;};
+
+
