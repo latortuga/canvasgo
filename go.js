@@ -23,19 +23,22 @@ function on_mousedown(e) {
 
 function on_mouseup(e) {
     var pos = getRelativePosition(e);
-    placeStone(pos.x, pos.y)
+    placeStoneByPosition(pos.x, pos.y);
 }
 
-function placeStone(x, y) {
+function placeStoneByPosition(x, y) {
     var xthing = (x % cellSize) < (cellSize/2) ? x - (x%cellSize) : x + (cellSize-x%cellSize);
     var ything = (y % cellSize) < (cellSize/2) ? y - (y%cellSize) : y + (cellSize-y%cellSize);
     drawCircle(xthing,ything,stoneSize,true);
 }
 
+function placeStone(x,y) {
+    var xVal = cellSize + x*cellSize;
+    var yVal = cellSize + y*cellSize;
+    placeStoneByPosition(xVal,yVal);
+}
+
 function drawBoard(lines) {
-    // apparently this doesn't work!
-    //gocanvas.width = ((cellSize*lines)+(cellsize*2));
-    //gocanvas.height = ((cellSize*lines)+(cellsize*2));
     drawGrid(cellSize, cellSize, lines-1);
     drawBoardDots(cellSize, lines-1);
 }
