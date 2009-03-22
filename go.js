@@ -13,29 +13,41 @@ function start() {
     //drawBoard(19);
 }
 
-function getRelativePosition(e) {
+function getCanvasPosition(e) {
 	return {x: e.clientX - $("gocanvas").offsetLeft, y: e.clientY - $("gocanvas").offsetTop};
 }
 
 function on_mousedown(e) {
-    var pos = getRelativePosition(e);
+    canv.save();
+    var pos = getCanvasPosition(e);
+    downGridPos = getGridPosition(pos.x,pos.y);
+    placeStoneByPosition(pos.x, pos.y, true);
 }
 
 function on_mouseup(e) {
-    var pos = getRelativePosition(e);
-    placeStoneByPosition(pos.x, pos.y);
+    var pos = getCanvasPosition(e);
+    var upGridPos = getGridPosition(pos.x,pos.y);
+    if (downGridPos.x != upGridPos.x || downGridPos.y != upGridPos.y)
+        canv.restore();
 }
 
-function placeStoneByPosition(x, y) {
-    var xthing = (x % cellSize) < (cellSize/2) ? x - (x%cellSize) : x + (cellSize-x%cellSize);
-    var ything = (y % cellSize) < (cellSize/2) ? y - (y%cellSize) : y + (cellSize-y%cellSize);
-    drawCircle(xthing,ything,stoneSize,true);
+function getGridPosition(x,y) {
+    var xthing = (x % cellSize) < (cellSize/2) ? x - (x % cellSize) : x + (cellSize - x % cellSize);
+    var ything = (y % cellSize) < (cellSize/2) ? y - (y % cellSize) : y + (cellSize - y % cellSize);
+    return {x:xthing, y:ything};
 }
 
-function placeStone(x,y) {
+// Place a stone by canvas coordinate position e.g. 140,280
+function placeStoneByPosition(x, y, color) {
+    var gridPos = getGridPosition(x,y);
+    drawCircle(gridPos.x,gridPos.y,stoneSize,color);
+}
+
+// Place a stone by a game board position e.g. 1,2
+function placeStone(x, y, color) {
     var xVal = cellSize + x*cellSize;
     var yVal = cellSize + y*cellSize;
-    placeStoneByPosition(xVal,yVal);
+    placeStoneByPosition(xVal,yVal,color);
 }
 
 function drawBoard(lines) {
