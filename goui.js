@@ -6,7 +6,8 @@ function on_mousedown(e) {
 function on_mouseup(e) {
   var pos = getCanvasPosition(e);
   var upGridPos = getGridPosition(pos.x, pos.y);
-  if ((downGridPos.x == upGridPos.x) && (downGridPos.y == upGridPos.y)) {
+  if ((downGridPos.x == upGridPos.x) && (downGridPos.y == upGridPos.y) &&
+      downGridPos.x != 0 && downGridPos.y != 0) {
     colorToPlace = !colorToPlace;
     placeStoneByPosition(upGridPos.x, upGridPos.y, colorToPlace);
   }
