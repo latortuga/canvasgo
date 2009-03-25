@@ -76,18 +76,18 @@ function clearBoard() {
 function radians(deg) {return (Math.PI/180)*deg;};
 
 function refresh(){
-  drawBoard(gameSize);
-  drawStones();
+    drawBoard(gameSize);
+    drawStones();
 }
 
-function drawStones(){
-  for (var i = 0; i < board.length; i++) {
-    for (var j = 0; j < board[i].length; j++) {
-      if(board[i][j] == 1){
-	 drawStone(i, j, "black");
-      } else if (board[i][j] == 2){
-	 drawStone(i, j, "white");
-      }
-    }
+function drawStones() {
+ for (var i = 0; i < board.length; i++) {
+  for (var j = 0; j < board[i].length; j++) {
+   if (board[i][j] == 1) {
+    drawStone(i, j, "black");
+   } else if (board[i][j] == 2) {
+    drawStone(i, j, "white");
+   }
   }
+ }
 }
