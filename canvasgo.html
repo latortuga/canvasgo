@@ -8,6 +8,13 @@
     <title>Play Go!</title>
 </head>
 <body onload="draw()">
-    <canvas id="gocanvas" width="800" height="800"></canvas>
+    <div id="command-box">
+        <form id="command-radio-buttons">
+            <input class="command-options" type="radio" name="status">Black</input><br />
+            <input class="command-options" type="radio" name="status">White</input><br />
+            <input class="command-options" type="radio" name="status">Capture</input>
+        </form>
+    </div>
+    <canvas id="gocanvas" width="700" height="700"></canvas>
 </body>
 </html>

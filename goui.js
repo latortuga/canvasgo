@@ -3,10 +3,10 @@ function draw() {
     cellSize = 35;
     stoneSize = (cellSize-2)/2;
     colorToPlace = true;
-    gameSize = 17;
+    gameSize = 13;
     boardSizeMin = cellSize;
     boardSizeMax = cellSize * gameSize + cellSize;
-    ;
+
     window.addEventListener("mousedown", on_mousedown, false);
     window.addEventListener("mouseup", on_mouseup, false);
 
