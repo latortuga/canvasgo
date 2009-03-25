@@ -69,7 +69,7 @@ function drawCircle(x, y, radius, fill) {
     canv.fill();
 }
 
-function clearBoard() {
+function clearBoardUI() {
     $("gocanvas").getContext("2d").clearRect(0,0,800,800);
 }
 
@@ -77,6 +77,7 @@ function clearBoard() {
 function radians(deg) {return (Math.PI/180)*deg;};
 
 function refresh(){
+    clearBoardUI();
     drawBoard(gameSize);
     drawStones();
 }
