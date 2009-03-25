@@ -83,8 +83,8 @@ function refresh(){
 }
 
 function drawStones() {
- for (var i = 0; i < board.length; i++) {
-  for (var j = 0; j < board[i].length; j++) {
+ for (var i = 1; i < board.length; i++) {
+  for (var j = 1; j < board[i].length; j++) {
    if (board[i][j] == 1) {
     drawStone(i, j, "black");
    } else if (board[i][j] == 2) {

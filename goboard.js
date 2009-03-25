@@ -3,9 +3,9 @@ gameSize = 19;
 
 // Initialize a size by size board with all zeroes, meaning empty.
 function initBoard(size) {
- board = new Array(size);
+ board = new Array(size+1);
  for (var i = 0; i < board.length; i++) {
-  board[i] = new Array(size);
+  board[i] = new Array(size+1);
   for (var j = 0; j < board[i].length; j++) {
     board[i][j] = 0;
   }
@@ -19,7 +19,9 @@ function clearBoard() {
 }
 
 function setPositionState(x, y, color) {
- if (color == true) {
+ if (x == 0 || y == 0) {
+  board[x][y] = 0;
+ } else if (color == true) {
   board[x][y] = 1;
  } else if (color == false) {
   board[x][y] = 2;
