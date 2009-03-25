@@ -1,4 +1,3 @@
-
 function on_mousedown(e) {
   var pos = getCanvasPosition(e);
   downGridPos = getGridPosition(pos.x,pos.y);
