@@ -6,8 +6,7 @@ function on_mousedown(e) {
 function on_mouseup(e) {
   var pos = getCanvasPosition(e);
   var upGridPos = getGridPosition(pos.x, pos.y);
-  if ((downGridPos.x == upGridPos.x) && (downGridPos.y == upGridPos.y) &&
-      downGridPos.x != 0 && downGridPos.y != 0) {
+  if ((downGridPos.x == upGridPos.x) && (downGridPos.y == upGridPos.y)) {
     colorToPlace = !colorToPlace;
     placeStoneByPosition(upGridPos.x, upGridPos.y, colorToPlace);
   }
@@ -20,7 +19,7 @@ function getCanvasPosition(e) {
 function getGridPosition(aX, aY) {
   var xthing = ((aX % cellSize) < (cellSize/2)) ? (aX - (aX % cellSize)) : (aX + (cellSize - aX % cellSize));
   var ything = ((aY % cellSize) < (cellSize/2)) ? (aY - (aY % cellSize)) : (aY + (cellSize - aY % cellSize));
-  return {x:xthing/cellSize, y:ything/cellSize};
+  return {x:(xthing-borderSize)/cellSize, y:(ything-borderSize)/cellSize};
 }
 
 // Place a stone by canvas coordinate position e.g. 140,280
@@ -50,12 +49,16 @@ function drawBoardDots(cell, boxes) {
 }
 
 function drawGrid(width, height, boxes) {
-    for (var i = 1; i <= boxes; i++)
-        for (var j = 1; j <= boxes; j++)
-            canv.strokeRect(i*width, j*height, width, height);
+    for (var i = 0; i < boxes; i++)
+        for (var j = 0; j < boxes; j++)
+            canv.strokeRect(i*width+borderSize, j*height+borderSize, width, height);
 }
 
 function drawCircle(x, y, radius, fill) {
+  // Account for the boarder before drawing
+  x += borderSize;
+  y += borderSize;
+
     canv.beginPath();
     var start = 0;
     var end = radians(180);
@@ -77,19 +80,19 @@ function clearBoardUI() {
 function radians(deg) {return (Math.PI/180)*deg;};
 
 function refresh(){
-    clearBoardUI();
-    drawBoard(gameSize);
-    drawStones();
+  clearBoardUI();
+  drawBoard(gameSize);
+  drawStones();
 }
 
 function drawStones() {
- for (var i = 1; i < board.length; i++) {
-  for (var j = 1; j < board[i].length; j++) {
-   if (board[i][j] == 1) {
-    drawStone(i, j, "black");
-   } else if (board[i][j] == 2) {
-    drawStone(i, j, "white");
-   }
+  for (var i = 0; i < board.length; i++) {
+    for (var j = 0; j < board[i].length; j++) {
+      if (board[i][j] == 1) {
+	drawStone(i, j, "black");
+      } else if (board[i][j] == 2) {
+	drawStone(i, j, "white");
+      }
+    }
   }
- }
 }
