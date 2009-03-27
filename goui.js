@@ -54,12 +54,28 @@ function drawBoard(lines) {
 }
 
 function drawBoardDots(cell, boxes) {
-  if (boxes < 18) {
-    for (var i = (boxes/4); i < boxes; i+=(boxes/4)) {
-      for (var j = (boxes/4); j < boxes; j+=(boxes/4)) {
-        drawCircle(cell*i+cell, cell*j+cell, 3, "black");
-      }
-    }
+  if (gameSize == 9) {
+    var v1 = 2 * cellSize;
+    var v2 = (gameSize - 3) * cellSize;
+    drawCircle(v1, v1, 3, "black");
+    drawCircle(v1, v2, 3, "black");
+    drawCircle(v2, v1, 3, "black");
+    drawCircle(v2, v2, 3, "black");
+  } else {
+    var v1 = 3 * cellSize;
+    var v2 = (gameSize - 1) / 2 * cellSize;
+    var v3 = (gameSize - 4) * cellSize;
+    drawCircle(v1, v1, 3, "black");
+    drawCircle(v2, v1, 3, "black");
+    drawCircle(v3, v1, 3, "black");
+
+    drawCircle(v1, v2, 3, "black");
+    drawCircle(v2, v2, 3, "black");
+    drawCircle(v3, v2, 3, "black");
+
+    drawCircle(v1, v3, 3, "black");
+    drawCircle(v2, v3, 3, "black");
+    drawCircle(v3, v3, 3, "black");
   }
 }
 
