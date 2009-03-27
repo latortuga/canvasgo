@@ -7,13 +7,25 @@ function on_mouseup(e) {
   var pos = getCanvasPosition(e);
   var upGridPos = getGridPosition(pos.x, pos.y);
   if ((downGridPos.x == upGridPos.x) && (downGridPos.y == upGridPos.y)) {
-    colorToPlace = !colorToPlace;
-    placeStoneByPosition(upGridPos.x, upGridPos.y, colorToPlace);
+    placeStoneByPosition(upGridPos.x, upGridPos.y, getColorToPlace());
   }
 }
 
+function getColorToPlace(){
+  return $("input[name='status']:checked").val();
+}
+
+function updateColorToPlace() {
+  if(getColorToPlace()=="black"){
+    $("input[value='white']").attr({checked:"true"});
+  }else if(getColorToPlace() == "white"){
+    $("input[value='black']").attr({checked:"true"});
+  }
+
+}
+
 function getCanvasPosition(e) {
-  return {x: e.clientX - $("gocanvas").offsetLeft, y: e.clientY - $("gocanvas").offsetTop};
+  return {x: e.clientX - canv.offsetLeft, y: e.clientY - canv.offsetTop};
 }
 
 function getGridPosition(aX, aY) {
@@ -24,13 +36,16 @@ function getGridPosition(aX, aY) {
 
 // Place a stone by canvas coordinate position e.g. 140,280
 function placeStoneByPosition(x, y, color) {
-  setPositionState(x, y, color);
-  refresh();
+  if(setPositionState(x, y, color)) {
+    updateColorToPlace();
+    refresh();
+  }
 }
 
 // Place a stone by a game board position e.g. 1,2
 function drawStone(x, y, color) {
-  drawCircle(x*cellSize, y*cellSize, stoneSize, color);
+  if(color == "black" || color == "white")
+    drawCircle(x*cellSize, y*cellSize, stoneSize, color);
 }
 
 function drawBoard(lines) {
@@ -51,7 +66,7 @@ function drawBoardDots(cell, boxes) {
 function drawGrid(width, height, boxes) {
     for (var i = 0; i < boxes; i++)
         for (var j = 0; j < boxes; j++)
-            canv.strokeRect(i*width+borderSize, j*height+borderSize, width, height);
+            context.strokeRect(i*width+borderSize, j*height+borderSize, width, height);
 }
 
 function drawCircle(x, y, radius, fill) {
@@ -59,21 +74,21 @@ function drawCircle(x, y, radius, fill) {
   x += borderSize;
   y += borderSize;
 
-    canv.beginPath();
-    var start = 0;
-    var end = radians(180);
+  context.beginPath();
+  var start = 0;
+  var end = radians(180);
 
-    // Just flip start and end to draw a circle. Hax.
-    canv.arc(x, y, radius, start, end, true);
-    canv.stroke();
-    canv.arc(x, y, radius, end, start, true);
-    canv.stroke();
-    canv.fillStyle = fill;
-    canv.fill();
+  // Just flip start and end to draw a circle. Hax.
+  context.arc(x, y, radius, start, end, true);
+  context.stroke();
+  context.arc(x, y, radius, end, start, true);
+  context.stroke();
+  context.fillStyle = fill;
+  context.fill();
 }
 
 function clearBoardUI() {
-    $("gocanvas").getContext("2d").clearRect(0,0,800,800);
+  context.clearRect(0,0,800,800);
 }
 
 // Arc drawing requires radians!
@@ -88,11 +103,7 @@ function refresh(){
 function drawStones() {
   for (var i = 0; i < board.length; i++) {
     for (var j = 0; j < board[i].length; j++) {
-      if (board[i][j] == 1) {
-	drawStone(i, j, "black");
-      } else if (board[i][j] == 2) {
-	drawStone(i, j, "white");
-      }
+      drawStone(i, j, board[i][j]);
     }
   }
 }

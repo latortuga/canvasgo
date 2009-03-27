@@ -7,7 +7,7 @@ function initBoard(size) {
  for (var i = 0; i < board.length; i++) {
   board[i] = new Array(size);
   for (var j = 0; j < board[i].length; j++) {
-    board[i][j] = 0;
+    board[i][j] = "cap";
   }
  }
 }
@@ -20,25 +20,22 @@ function clearBoard() {
 
 function setPositionState(x, y, color) {
   if (x < 0 || y < 0 || x >= gameSize || y >= gameSize) {
-    return;
-  } else if (color == true) {
-    board[x][y] = 1;
-  } else if (color == false) {
-    board[x][y] = 2;
-  } else {
-    board[x][y] = 0;
+    return false;
   }
+  board[x][y] = color;
+  return true;
 }
 
 function draw() {
- canv = $("gocanvas").getContext("2d");
- cellSize = 35;
- stoneSize = (cellSize-2)/2;
- colorToPlace = true;
- borderSize = cellSize;
+  canv = $("#gocanvas")[0];
+  context = canv.getContext("2d");
+  cellSize = 35;
+  stoneSize = (cellSize-2)/2;
+  borderSize = cellSize;
 
- window.addEventListener("mousedown", on_mousedown, false);
- window.addEventListener("mouseup", on_mouseup, false);
+  window.addEventListener("mousedown", on_mousedown, false);
+  window.addEventListener("mouseup", on_mouseup, false);
+
 
  clearBoard();
 }
