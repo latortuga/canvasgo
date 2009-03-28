@@ -26,10 +26,10 @@ function setPositionState(x, y, color) {
 function draw() {
   canv = $("#gocanvas")[0];
   context = canv.getContext("2d");
-  cellSize = 35;
+  gameSize = parseInt(gup("size")) || 19;
+  cellSize = gameSize > 13 ? 20 : gameSize > 9 ? 30 : 40;
   stoneSize = (cellSize-2)/2;
   borderSize = cellSize;
-  gameSize = parseInt(gup("size")) || 19;
 
   window.addEventListener("mousedown", on_mousedown, false);
   window.addEventListener("mouseup", on_mouseup, false);
