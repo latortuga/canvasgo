@@ -19,6 +19,9 @@ function setPositionState(x, y, color) {
   if (x < 0 || y < 0 || x >= gameSize || y >= gameSize) {
     return false;
   }
+  if(board[x][y] != "cap") {
+    return false;
+  }
   board[x][y] = color;
   return true;
 }
