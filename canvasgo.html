@@ -9,18 +9,19 @@
     <title>Play Go!</title>
 </head>
 <body onload="draw()">
-<div style="position:relative">
-  <a href="canvasgo.html?size=19">19x19</a>
-  <a href="canvasgo.html?size=13">13x13</a>
-  <a href="canvasgo.html?size=9">9x9</a><br />
-</div>
-    <div id="command-box">
-        <form id="color-radio-buttons">
-            <input class="command-options" type="radio" name="status" value="black" checked="true">Black</input><br />
-            <input class="command-options" type="radio" name="status" value="white">White</input><br />
-            <input class="command-options" type="radio" name="status" value="cap">Capture</input>
-        </form>
-    </div>
-    <canvas id="gocanvas" width="700" height="700"></canvas>
+  <div style="position:relative">
+    <a href="canvasgo.html?size=19">19x19</a>
+    <a href="canvasgo.html?size=13">13x13</a>
+    <a href="canvasgo.html?size=9">9x9</a><br />
+  </div>
+  <div id="command-box">
+    <form id="color-radio-buttons">
+      <input class="command-options" type="radio" name="status" value="black" checked="true">Black</input><br />
+      <input class="command-options" type="radio" name="status" value="white">White</input><br />
+      <input class="command-options" type="radio" name="status" value="cap">Capture</input><br />
+      <input type="button" value="Pass" name="passBtn" onClick="on_pass()"> 
+    </form>
+  </div>
+  <canvas id="gocanvas" width="700" height="700"></canvas>
 </body>
 </html>

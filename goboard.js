@@ -37,7 +37,6 @@ function draw() {
   window.addEventListener("mousedown", on_mousedown, false);
   window.addEventListener("mouseup", on_mouseup, false);
 
-
   clearBoard();
 }
 

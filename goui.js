@@ -7,7 +7,19 @@ function on_mouseup(e) {
   var pos = getCanvasPosition(e);
   var upGridPos = getGridPosition(pos.x, pos.y);
   if ((downGridPos.x == upGridPos.x) && (downGridPos.y == upGridPos.y)) {
-    placeStoneByPosition(upGridPos.x, upGridPos.y, getColorToPlace());
+    if(placeStoneByPosition(upGridPos.x, upGridPos.y, getColorToPlace())) {
+      lastMovePass = false;
+    }
+  }
+}
+
+function on_pass(e) {
+  alert(lastMovePass);
+  if(lastMovePass) {
+    alert("GameOver");
+  } else {
+    lastMovePass = true;
+    updateColorToPlace();
   }
 }
 
@@ -39,7 +51,9 @@ function placeStoneByPosition(x, y, color) {
   if(setPositionState(x, y, color)) {
     updateColorToPlace();
     refresh();
+    return true;
   }
+  return false;
 }
 
 // Place a stone by a game board position e.g. 1,2
