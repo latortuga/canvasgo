@@ -38,6 +38,7 @@ function draw() {
   window.addEventListener("mouseup", on_mouseup, false);
 
   clearBoard();
+  setupDataBase();
 }
 
 function gup( name )
