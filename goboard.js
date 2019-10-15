@@ -1,12 +1,17 @@
 // Initialize a size by size board with all zeroes, meaning empty.
 function initBoard() {
-  board = new Array(gameSize);
-  for (var i = 0; i < board.length; i++) {
-    board[i] = new Array(gameSize);
-    for (var j = 0; j < board[i].length; j++) {
-      board[i][j] = "cap";
+    // If a gameState was loaded successfully, initilize board with that data. else, initilize an empty board
+    if(gameState){
+        board = gameState;
+    }else{
+        board = new Array(gameSize);
+        for (var i = 0; i < board.length; i++) {
+            board[i] = new Array(gameSize);
+            for (var j = 0; j < board[i].length; j++) {
+            board[i][j] = "cap";
+            }
+        }
     }
-  }
 }
 
 // Set up the board with empty data and refresh the ui.
@@ -29,7 +34,12 @@ function setPositionState(x, y, color) {
 function draw() {
   canv = $("#gocanvas")[0];
   context = canv.getContext("2d");
-  gameSize = parseInt(gup("size")) || 19;
+  // If a gameState has been loaded, set the board size based on the board size of the saved gameState
+  if(gameState){
+      gameSize = gameState[0].length
+  }else{
+    gameSize = parseInt(gup("size")) || 19;
+  }
   cellSize = gameSize > 13 ? 20 : gameSize > 9 ? 30 : 40;
   stoneSize = (cellSize-2)/2;
   borderSize = cellSize;
@@ -38,7 +48,8 @@ function draw() {
   window.addEventListener("mouseup", on_mouseup, false);
 
   clearBoard();
-  setupDataBase();
+  // setup database only if it has NOT been initilized already
+  if(!dataBase) setupDataBase();
 }
 
 function gup( name )
